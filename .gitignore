@@ -18,7 +18,10 @@ npm-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Documentation
+docs/document.md
+
 # macOS system files
 .DS_Store
 .DS_Store?
-._*ß
+._*

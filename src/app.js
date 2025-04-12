@@ -1,9 +1,13 @@
+require('dotenv').config();
+
 const express = require('express');
+const helmet = require('helmet');
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
 
 // Routes
 app.get('/', (req, res) => {

@@ -81,9 +81,61 @@ app.use((err, req, res, next) => {
 
 module.exports = app;
 ```
-
 ### Location:
 - Create in: `src/app.js`
 - Command: `mkdir src && touch src/app.js`
-
 ***-------------------------------------------------------------------------------------------------------------------------------***
+## Configure dotenv:
+### Overview:
+- **dotenv** loads environment variables from `.env` file into `process.env`
+- Keeps sensitive data like API keys and passwords secure
+- Should never commit `.env` file to version control
+###  Usage:
+- Basic Command: **npm i dotenv** (is shorthand for install)
+- With **-E, --save-exact**: Installs exact package version without semver range.
+- With **@16.5.0**: Specifies the exact version of Express you want to install.
+- Used: **npm i --save-exact dotenv@16.5.0**
+***-------------------------------------------------------------------------------------------------------------------------------***
+## Install Helmet Security:
+### Overview:
+- **Helmet** helps secure Express apps by setting various HTTP headers
+- Protects against common web vulnerabilities
+- Recommended for all Express applications
+### Installation:
+```bash
+npm i helmet --save-dev
+```
+### Basic Setup:
+```javascript
+// filepath: /Users/nguyenquoc/Desktop/NodeJS/login/src/app.js
+require('dotenv').config();
+const express = require('express');
+const helmet = require('helmet');
+const app = express();
+
+// Add Helmet middleware early in your middleware stack
+app.use(helmet());
+
+// ...existing code...
+```
+### Security Headers Added:
+- **Content-Security-Policy**: Controls allowed content sources
+- **X-Frame-Options**: Prevents clickjacking
+- **X-XSS-Protection**: Stops cross-site scripting attacks
+- **X-Content-Type-Options**: Prevents MIME-type sniffing
+- **Referrer-Policy**: Controls referrer information
+### Custom Configuration:
+```javascript
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"]
+    }
+  }
+}));
+```
+### Current Version:
+- Using Helmet ^8.1.0 (as specified in package.json)
+- Install exact version: `npm i helmet@8.1.0 --save-exact --save-dev`
