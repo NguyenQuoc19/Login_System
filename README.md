@@ -1,2 +1,2 @@
-# login_project
+# Project login system
 Basic Login System
