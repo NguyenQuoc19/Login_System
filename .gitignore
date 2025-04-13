@@ -19,7 +19,7 @@ npm-debug.log*
 !.vscode/extensions.json
 
 # Documentation
-docs/document.md
+/docs/document.md
 
 # macOS system files
 .DS_Store

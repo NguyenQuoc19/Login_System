@@ -101,10 +101,14 @@ module.exports = app;
 - **Helmet** helps secure Express apps by setting various HTTP headers
 - Protects against common web vulnerabilities
 - Recommended for all Express applications
-### Installation:
-```bash
-npm i helmet --save-dev
-```
+###  Usage:
+- Basic Command: `npm i helmet` (is shorthand for install)
+- With `-D`, `--save-dev`:
+    - Installs packages as devDependencies in your package.json.
+    - Used for packages needed only during development, not in production
+- With `@8.1.0`: Specifies the exact version of Express you want to install.
+- Used: `npm i helmet@8.1.0 --save-dev`
+
 ### Basic Setup:
 ```javascript
 // filepath: /Users/nguyenquoc/Desktop/NodeJS/login/src/app.js
@@ -136,6 +140,27 @@ app.use(helmet({
   }
 }));
 ```
-### Current Version:
-- Using Helmet ^8.1.0 (as specified in package.json)
-- Install exact version: `npm i helmet@8.1.0 --save-exact --save-dev`
+***-------------------------------------------------------------------------------------------------------------------------------***
+## Install nodemon:
+### Overview:
+- **nodemon** monitors source code changes and automatically restarts Node.js applications
+- Improves development workflow by eliminating manual server restarts
+- Used as a development dependency only
+###  Usage:
+- Basic Command: `npm i nodemon` (is shorthand for install)
+- With `-D`, `--save-dev`:
+    - Installs packages as devDependencies in your package.json.
+    - Used for packages needed only during development, not in production
+- With `@3.1.9`: Specifies the exact version of Express you want to install.
+- Used: `sudo npm i nodemon@3.1.9 --save-dev`
+### Basic Setup:
+```javascript
+// Setup in package.json:
+{
+  scripts: {
+    start: "nodemon server.js"
+  }
+}
+// ...existing code...
+```
+***-------------------------------------------------------------------------------------------------------------------------------***

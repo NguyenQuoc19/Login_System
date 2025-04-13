@@ -6,11 +6,9 @@ const server = app.listen(port, () => {
 }
 );
 
-console.log(process.env);
-
-// Close the server after 5 seconds
-setTimeout(() => {
-    server.close(() => {
-        console.log('Server closed');
-    });
-}, 5000);
+// // Close the server after 5 seconds
+// setTimeout(() => {
+//     server.close(() => {
+//         console.log('Server closed');
+//     });
+// }, 5000);
