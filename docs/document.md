@@ -164,3 +164,43 @@ app.use(helmet({
 // ...existing code...
 ```
 ***-------------------------------------------------------------------------------------------------------------------------------***
+## Install Morgan Logger:
+### Overview:
+- HTTP request logger middleware for Node.js
+- Logs requests, responses, and other HTTP details
+- Useful for debugging and monitoring
+###  Usage:
+- Basic Command: `npm i morgan` (is shorthand for install)
+- With `-D`, `--save-dev`:
+    - Installs packages as devDependencies in your package.json.
+    - Used for packages needed only during development, not in production
+- With `@1.10.0`: Specifies the exact version of Express you want to install.
+- Used: `sudo npm i morgan@1.10.0 --save-dev`
+### Basic Setup:
+```javascript
+// Setup in package.json:
+const morgan = require('morgan');
+app.use(morgan('dev'));
+// ...existing code...
+```
+***-------------------------------------------------------------------------------------------------------------------------------***
+## Install Compression:
+### Overview:
+- Compresses response bodies for all requests
+- Reduces payload size and bandwidth usage
+- Improves application performance
+###  Usage:
+- Basic Command: `npm i compression` (is shorthand for install)
+- With `-D`, `--save-dev`:
+    - Installs packages as devDependencies in your package.json.
+    - Used for packages needed only during development, not in production
+- With `@1.8.0`: Specifies the exact version of Express you want to install.
+- Used: `sudo npm i compression@1.8.0 --save-dev`
+### Basic Setup:
+```javascript
+// Setup in package.json:
+const compression = require('compression');
+app.use(compression());
+// ...existing code...
+```
+***-------------------------------------------------------------------------------------------------------------------------------***
