@@ -1,21 +1,21 @@
 # Node.js Documentation:
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Innit package.json:
 ### Overview:
 - Initializes a Node.js project by creating a package.json file, which holds key project metadata and dependencies.
 ### Usage:
 - Basic Command: **npm init** — Runs interactively, asking for project details.
 - With **-y**  Flag: **npm init -y** — Auto-generates package.json with defaults, skipping questions.
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Install node_module:
 ### Overview:
 - Installs the Express.js framework into your Node.js project.
 ###  Usage:
-- Basic Command: **npm i express** (is shorthand for install)
-- With **-E, --save-exact**: Installs exact package version without semver range.
-- With **@5.1.0**: Specifies the exact version of Express you want to install.
-- Used: **npm i --save-exact express@5.1.0**
-***-------------------------------------------------------------------------------------------------------------------------------***
+- Basic Command: `npm i express` (is shorthand for install)
+- With `-E`, `--save-exact`: Installs exact package version without semver range.
+- With `@5.1.0`: Specifies the exact version of Express you want to install.
+- Used: `npm i --save-exact express@5.1.0`
+***
 ## Generate .gitignore:
 ### Overview:
 - A `.gitignore` file specifies which files and directories Git should ignore when tracking changes.
@@ -27,7 +27,7 @@
 ### Usage:
 - Create file: `touch .gitignore`
 - Add patterns to ignore specific files/folders
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Create server.js:
 ### Overview:
 - Entry point for the Node.js application
@@ -49,7 +49,7 @@ const server = app.listen(port, () => {
 ### Usage:
 - Start server: **node server.js**
 - Or using script: **npm start** (if defined in package.json)
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Create app.js:
 ### Overview:
 - Contains Express application configuration
@@ -84,18 +84,18 @@ module.exports = app;
 ### Location:
 - Create in: `src/app.js`
 - Command: `mkdir src && touch src/app.js`
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Configure dotenv:
 ### Overview:
 - **dotenv** loads environment variables from `.env` file into `process.env`
 - Keeps sensitive data like API keys and passwords secure
 - Should never commit `.env` file to version control
 ###  Usage:
-- Basic Command: **npm i dotenv** (is shorthand for install)
-- With **-E, --save-exact**: Installs exact package version without semver range.
-- With **@16.5.0**: Specifies the exact version of Express you want to install.
-- Used: **npm i --save-exact dotenv@16.5.0**
-***-------------------------------------------------------------------------------------------------------------------------------***
+- Basic Command: `npm i dotenv` (is shorthand for install)
+- With `-E`, `--save-exact`: Installs exact package version without semver range.
+- With `@16.5.0`: Specifies the exact version of Express you want to install.
+- Used: `npm i --save-exact dotenv@16.5.0`
+***
 ## Install Helmet Security:
 ### Overview:
 - **Helmet** helps secure Express apps by setting various HTTP headers
@@ -140,7 +140,7 @@ app.use(helmet({
   }
 }));
 ```
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Install nodemon:
 ### Overview:
 - **nodemon** monitors source code changes and automatically restarts Node.js applications
@@ -157,13 +157,13 @@ app.use(helmet({
 ```javascript
 // Setup in package.json:
 {
-  scripts: {
-    start: "nodemon server.js"
+  "scripts": {
+    "start": "nodemon server.js"
   }
 }
 // ...existing code...
 ```
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Install Morgan Logger:
 ### Overview:
 - HTTP request logger middleware for Node.js
@@ -183,7 +183,7 @@ const morgan = require('morgan');
 app.use(morgan('dev'));
 // ...existing code...
 ```
-***-------------------------------------------------------------------------------------------------------------------------------***
+***
 ## Install Compression:
 ### Overview:
 - Compresses response bodies for all requests
@@ -203,4 +203,4 @@ const compression = require('compression');
 app.use(compression());
 // ...existing code...
 ```
-***-------------------------------------------------------------------------------------------------------------------------------***
+***

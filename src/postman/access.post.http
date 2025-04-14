@@ -1,0 +1,12 @@
+# Base configuration
+@baseUrl=http://localhost:3000/v1/api/user
+
+### Sign up
+POST {{baseUrl}}/sign_up
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "user03@ex.co",
+    "password": "12345678"
+}

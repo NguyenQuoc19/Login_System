@@ -21,7 +21,7 @@ const { monitorSystemResources } = require('./helpers/db.connections');
 monitorSystemResources();
 
 // Routes
-app.use('/v1', indexRouter);
+app.use('/', indexRouter);
 
 // Error handling
 app.use((err, req, res, next) => {
