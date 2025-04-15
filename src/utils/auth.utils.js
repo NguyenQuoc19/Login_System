@@ -2,6 +2,12 @@ const JWT = require('jsonwebtoken');
 
 const createKeyTokenPair = (payload, publicKey, privateKey) => {
     try {
+        // Covert the public key object to to a public key string
+        const publicKeyString = publicKey.export({
+            type: 'pkcs1',
+            format: 'pem'
+        }).toString();
+
         // Create an access token base on private key
         const accessToken = JWT.sign(payload, privateKey, {
             algorithm: 'RS256',
@@ -15,8 +21,8 @@ const createKeyTokenPair = (payload, publicKey, privateKey) => {
             expiresIn: '7 days',
         });
 
-        // Verify the access token using the public key
-        JWT.verify(accessToken, publicKey, (err, decoded) => {
+        // Verify the access token using the public key string
+        JWT.verify(accessToken, publicKeyString, (err, decoded) => {
             if (err) {
                 console.error('JWT verification failed:', err);
             } else {

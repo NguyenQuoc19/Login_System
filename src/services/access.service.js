@@ -63,8 +63,6 @@ class AccessService {
                 publicKey,
             });
 
-            console.log('Public Key String:', publicKeyString);
-
             // Create the public key string is failed
             if (!publicKeyString) {
                 return {
@@ -74,11 +72,10 @@ class AccessService {
                 };
             }
 
-            // Convert the public key string to a public key object
+            // Convert the public key string in database to a public key object
             // This is used to verify the token
             // and to sign the token
             const publicKeyObject = createPublicKey(publicKeyString);
-            console.log('Public Key Object:', publicKeyObject);
 
             // Create JWT token based on the User Data, Public Key and Private Key
             const token = await createKeyTokenPair(
@@ -87,7 +84,7 @@ class AccessService {
                     email: newUser.email,
                     userName: newUser.userName
                 },
-                publicKeyString,
+                publicKeyObject,
                 privateKey
             );
 
@@ -113,7 +110,7 @@ class AccessService {
             return {
                 code: 500,
                 status: false,
-                message: error.message + "File" + error.stack,
+                message: error.message,
                 data: null,
             }
         }
