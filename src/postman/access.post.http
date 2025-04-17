@@ -1,12 +1,13 @@
 # Base configuration
 @baseUrl=http://localhost:3000/v1/api/user
-
+@apiKey = 08e5e258e10bf8c09c23c049574deb2b26b978a06a45b24b4cf1e7eacf7a41fb
 ### Sign up
 POST {{baseUrl}}/sign_up
 Content-Type: application/json
+x-api-key: {{apiKey}}
 
 {
-    "name": "John Doe",
-    "email": "user03@ex.co",
+    "username": "John Doe16",
+    "email": "user16@ex.co",
     "password": "12345678"
 }

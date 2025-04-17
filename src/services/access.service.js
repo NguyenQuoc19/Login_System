@@ -1,8 +1,8 @@
 const User = require('../models/user.model');
-const KeyService = require('./key.service');
+const KeyService = require('../services/key.token.service');
 const { pickInfo } = require('../utils');
-const { createKeyTokenPair } = require('../utils/auth.utils');
-const { generateKeyPairSync, createPublicKey } = require('node:crypto');
+const { createKeyTokenPair } = require('../auth/auth.utils');
+const { generateKeyPairSync, createPublicKey, diffieHellman } = require('node:crypto');
 
 const roles = {
     MODERATOR: 1,
@@ -42,7 +42,7 @@ class AccessService {
             }
 
             // Generate a new public key and new private key
-            const { publicKey, privateKey } = await generateKeyPairSync(
+            const { privateKey, publicKey } = await generateKeyPairSync(
                 'rsa',
                 {
                     modulusLength: 4096,
@@ -73,8 +73,6 @@ class AccessService {
             }
 
             // Convert the public key string in database to a public key object
-            // This is used to verify the token
-            // and to sign the token
             const publicKeyObject = createPublicKey(publicKeyString);
 
             // Create JWT token based on the User Data, Public Key and Private Key
@@ -88,7 +86,6 @@ class AccessService {
                 privateKey
             );
 
-            console.log('Token:', token);
             if (!token) {
                 return {
                     code: 500,
