@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         trim: true,
-        sparse: true // Index applies only when username exists
+        // sparse: true // Index applies only when username exists
     },
     status: {
         type: Number, // Indicates user status

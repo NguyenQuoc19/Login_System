@@ -18,6 +18,6 @@ router.use(apiKeyPermission('000'));
 router.get(`${apiPrefix}`, getIndex);
 
 // Access routes
-router.use(`${apiPrefix}/user`, require("./access"));
+router.use(`${apiPrefix}`, require("./access"));
 
 module.exports = router;
