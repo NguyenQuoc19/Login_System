@@ -4,4 +4,11 @@ const pickInfo = (object = {}, fields = []) => {
     return _.pick(object, fields);
 }
 
-module.exports = { pickInfo };
+
+const asyncHandle = fn => {
+    return (req, res, next) => {
+        return fn(req, res, next).catch(next);
+    };
+}
+
+module.exports = { pickInfo, asyncHandle };

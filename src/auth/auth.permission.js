@@ -40,9 +40,6 @@ const apiKey = async (req, res, next) => {
 const apiKeyPermission = (permission) => {
     return (req, res, next) => {
         try {
-            console.log("Permission::", permission);
-            console.log("Permission::", req);
-
             if (!req.objectKey.permissions) {
                 return res.status(403).json({
                     status: false,

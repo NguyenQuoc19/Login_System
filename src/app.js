@@ -24,8 +24,20 @@ monitorSystemResources();
 app.use('/', indexRouter);
 
 // Error handling
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+}
+);
+
 app.use((err, req, res, next) => {
-    res.status(500).json({ error: err.message });
+    const statusCode = err.status || 500;
+    return res.status(statusCode).json({
+        status: false,
+        code: statusCode,
+        message: err.message || 'Internal Server Error'
+    });
 });
 
 module.exports = app;

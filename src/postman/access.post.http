@@ -1,6 +1,6 @@
 # Base configuration
 @baseUrl=http://localhost:3000/v1/api/user
-@apiKey = 08e5e258e10bf8c09c23c049574deb2b26b978a06a45b24b4cf1e7eacf7a41fb
+@apiKey = 71d9f89886c72c39ca939a3b6b0abcf101bad656a43b150658eb66111717b7ca
 ### Sign up
 POST {{baseUrl}}/sign_up
 Content-Type: application/json
