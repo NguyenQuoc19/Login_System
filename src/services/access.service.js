@@ -58,18 +58,20 @@ class AccessService {
 
         // 3. Create a new public key and new private key
         const { publicKey, privateKey } = await this.#generateKeys();
+        const publicKeyObject = createPublicKey(publicKey);
 
         // 4. Generate the token
+        const { _id: userId } = user;
         const tokens = await createKeyTokenPair(
-            { userId: user._id, email: user.email, userName: user.username },
-            createPublicKey(publicKey),
+            { userId, email, userName: user.username },
+            publicKeyObject,
             privateKey
         );
         if (!tokens) throw new BadRequestError('Failed to create token!');
 
         await KeyService.createKeyToken({
             refreshToken: tokens.refreshToken,
-            publicKey,
+            publicKey: publicKeyObject,
             userId: user._id,
             password
         });

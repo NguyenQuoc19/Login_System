@@ -31,7 +31,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log(err);
     const statusCode = err.statusCode || 500;
     return res.status(statusCode).json({
         status: false,
