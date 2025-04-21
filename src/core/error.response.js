@@ -35,4 +35,11 @@ class NotFound extends ErrorResponse {
     }
 }
 
-module.exports = { BadRequestError, ConflictRequestError, AuthFailureError, NotFound };
+// The function is used to handle the unauthorized error
+class ForbiddenError extends ErrorResponse {
+    constructor(message = ReasonPhrases.FORBIDDEN, statusCode = StatusCodes.FORBIDDEN) {
+        super(message, statusCode);
+    }
+}
+
+module.exports = { BadRequestError, ConflictRequestError, AuthFailureError, NotFound, ForbiddenError };

@@ -1,7 +1,6 @@
 const KeyModel = require('../models/key.token.model');
 
 const { Types } = require('mongoose');
-
 class KeyService {
     static createKeyToken = async ({ userId, publicKey, refreshToken }) => {
         const filter = { user: userId };
@@ -17,13 +16,23 @@ class KeyService {
     }
 
     static findKeyByUserId = async (userId) => {
-        return await KeyModel.findOne({ user: new Types.ObjectId(userId) })
-            .select({ refreshToken: 1, refreshTokensUsed: 1, publicKey: 1 })
-            .lean();
+        return await KeyModel.findOne({ user: new Types.ObjectId(userId) }).lean();
+    }
+
+    static findUsedRefreshToken = async (refreshToken) => {
+        return await KeyModel.findOne({ refreshTokensUsed: refreshToken }).lean();
+    }
+
+    static findKeyByRefreshToken = async (refreshToken) => {
+        return await KeyModel.findOne({ refreshToken: refreshToken });
     }
 
     static deleteKeyById = async (id) => {
         return await KeyModel.deleteOne({ _id: new Types.ObjectId(id) });
+    }
+
+    static deleteKeyByUserId = async (userId) => {
+        return await KeyModel.deleteOne({ user: new Types.ObjectId(userId) });
     }
 }
 

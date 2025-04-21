@@ -3,8 +3,8 @@ const KeyService = require('../services/key.token.service');
 const ErrorResponse = require('../core/error.response');
 
 const { pickInfo } = require('../utils');
-const { findUserByEmail } = require('../services/user.service');
-const { createKeyTokenPair } = require('../auth/auth.utils');
+const { findUserById, findUserByEmail } = require('../services/user.service');
+const { createKeyTokenPair, validateJWT } = require('../auth/auth.utils');
 const { generateKeyPairSync, createPublicKey } = require('node:crypto');
 
 const roles = {
@@ -84,6 +84,56 @@ class AccessService {
     // Logout a user
     static logout = async (keyStore) => {
         return await KeyService.deleteKeyById(keyStore._id);
+    }
+
+    static refreshToken = async (refreshToken) => {
+        // 1. Check the token requested has been used
+        console.log(1);
+        const isUsedToken = await KeyService.findUsedRefreshToken(refreshToken);
+        if (isUsedToken) {
+            console.log("Found:", isUsedToken.tokens);
+            // Find the user need to warning about the security
+            const warningUser = await findUserById({ id: isUsedToken.user });
+            console.log('User Info:: ', pickInfo(warningUser, ['_id', 'email', 'username']));
+
+            // Delete all keys of User have refresh token is used
+            await KeyService.deleteKeyByUserId(warningUser._id);
+            throw new ErrorResponse.ForbiddenError('Something wrong happened! Please re-login!');
+        }
+
+        const holderToken = await KeyService.findKeyByRefreshToken(refreshToken);
+        if (!holderToken) throw new ErrorResponse.AuthFailureError('The User is not register!');
+
+        // Verify the token by JWT
+        const { email } = await validateJWT(refreshToken, holderToken.publicKey);
+
+        const user = await findUserByEmail({ email });
+        if (!user) throw new ErrorResponse.AuthFailureError('The User is not register!');
+
+        // Generate a new public key and new private key
+        const { publicKey, privateKey } = await this.#generateKeys();
+        // Create a new access token and refresh token
+        const tokens = await createKeyTokenPair(
+            { userId: user._id, email: user.email, userName: user.userName },
+            createPublicKey(publicKey),
+            privateKey
+        );
+
+        // Update the key token data
+        await holderToken.updateOne({
+            $set: {
+                refreshToken: tokens.refreshToken,
+                publicKey: publicKey
+            },
+            $addToSet: {
+                refreshTokensUsed: refreshToken
+            }
+        })
+
+        return {
+            user: pickInfo(user, ['_id', 'email', 'username']),
+            tokens
+        }
     }
 
     // Generate a new public key and new private key

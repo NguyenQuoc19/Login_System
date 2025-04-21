@@ -25,13 +25,14 @@ app.use('/', indexRouter);
 
 // Error handling
 app.use((req, res, next) => {
-    const error = new Error('Not Found');
-    error.status = 404;
+    const error = new Error('Not Found!');
+    error.statusCode = 404;
     next(error);
 });
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
+    console.log(err);
     return res.status(statusCode).json({
         status: false,
         code: statusCode,

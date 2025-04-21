@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require("express");
 const router = express.Router();
 const accessController = require("../../controllers/access.controller");
@@ -14,5 +16,6 @@ router.use(verifyAuthentication);
 
 // Logout route API
 router.get("/logout", asyncHandle(accessController.logout));
+router.post("/refresh_token", asyncHandle(accessController.refreshToken));
 
 module.exports = router;
