@@ -1,19 +1,29 @@
 const KeyModel = require('../models/key.token.model');
 
+const { Types } = require('mongoose');
+
 class KeyService {
     static createKeyToken = async ({ userId, publicKey, refreshToken }) => {
-        // Convert the public key to a string
-        const publicKeyString = publicKey.export({
-            type: 'pkcs1',
-            format: 'pem'
-        }).toString();
-
         const filter = { user: userId };
-        const update = { publicKeyString, refreshTokenUsed: [], refreshToken };
+        const update = { publicKey, refreshTokenUsed: [], refreshToken };
         const options = { new: true, upsert: true };
-        const tokens = await KeyModel.findOneAndUpdate(filter, update, options);
 
-        return tokens ? tokens.publicKey : null;
+        try {
+            const tokens = await KeyModel.findOneAndUpdate(filter, update, options);
+            return tokens ? tokens.publicKey : null;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static findKeyByUserId = async (userId) => {
+        return await KeyModel.findOne({ user: new Types.ObjectId(userId) })
+            .select({ refreshToken: 1, refreshTokensUsed: 1, publicKey: 1 })
+            .lean();
+    }
+
+    static deleteKeyById = async (id) => {
+        return await KeyModel.deleteOne({ _id: new Types.ObjectId(id) });
     }
 }
 

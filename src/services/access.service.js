@@ -1,5 +1,4 @@
 const User = require('../models/user.model');
-const bcrypt = require('bcrypt'); // Used for password hashingß
 const KeyService = require('../services/key.token.service');
 const ErrorResponse = require('../core/error.response');
 
@@ -58,20 +57,19 @@ class AccessService {
 
         // 3. Create a new public key and new private key
         const { publicKey, privateKey } = await this.#generateKeys();
-        const publicKeyObject = createPublicKey(publicKey);
 
         // 4. Generate the token
         const { _id: userId } = user;
         const tokens = await createKeyTokenPair(
             { userId, email, userName: user.username },
-            publicKeyObject,
+            createPublicKey(publicKey),
             privateKey
         );
         if (!tokens) throw new BadRequestError('Failed to create token!');
 
         await KeyService.createKeyToken({
             refreshToken: tokens.refreshToken,
-            publicKey: publicKeyObject,
+            publicKey,
             userId: user._id,
             password
         });
@@ -81,6 +79,11 @@ class AccessService {
             user: pickInfo(user, ['_id', 'username', 'email']),
             tokens
         };
+    }
+
+    // Logout a user
+    static logout = async (keyStore) => {
+        return await KeyService.deleteKeyById(keyStore._id);
     }
 
     // Generate a new public key and new private key

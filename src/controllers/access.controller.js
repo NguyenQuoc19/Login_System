@@ -11,6 +11,14 @@ class AccessController {
         }).send(res);
     }
 
+    logout = async (req, res, next) => {
+        new Success({
+            message: "Logout successfully!",
+            data: await AccessService.logout(req.keyStore),
+            statusCode: res.statusCode,
+        }).send(res);
+    }
+
     signUp = async (req, res, next) => {
         new Created({
             statusCode: 201,

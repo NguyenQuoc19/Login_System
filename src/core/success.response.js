@@ -1,18 +1,18 @@
 const STATUS_CODES = {
-    SUCCESS: 200,
+    OK: 200,
     CREATED: 201,
 }
 
 const REASONS_STATUS_CODE = {
-    SUCCESS: "Successfully!",
+    OK: "OK!",
     CREATED: "Created successfully!",
 }
 
 class SuccessResponse {
     constructor({
         message,
-        statusCode = STATUS_CODES.SUCCESS,
-        reasons = REASONS_STATUS_CODE.SUCCESS,
+        statusCode = STATUS_CODES.OK,
+        reasons = REASONS_STATUS_CODE.OK,
         data = {}
     }) {
         this.data = data;
@@ -27,9 +27,9 @@ class SuccessResponse {
 
 class Success extends SuccessResponse {
     constructor({
-        message = REASONS_STATUS_CODE.SUCCESS,
-        statusCode = STATUS_CODES.SUCCESS,
-        reasons = REASONS_STATUS_CODE.SUCCESS,
+        message = REASONS_STATUS_CODE.OK,
+        statusCode = STATUS_CODES.OK,
+        reasons = REASONS_STATUS_CODE.OK,
         data = {}
     }) {
         super({ message, statusCode, reasons, data });
